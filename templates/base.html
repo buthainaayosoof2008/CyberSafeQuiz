@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}CyberSafe Quiz{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <a href="{{ url_for('dashboard') }}"
+               class="brand">
+                🛡️ CyberSafe Quiz
+            </a>
+
+            {% if session.get('user_id') %}
+
+            <div class="nav-links">
+
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+
+                <a href="{{ url_for('quiz') }}">
+                    Take Quiz
+                </a>
+
+                <a href="{{ url_for('questions') }}">
+                    Manage Questions
+                </a>
+
+                <a href="{{ url_for('logout') }}"
+                   class="logout-link">
+                    Logout
+                </a>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="main-container">
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-container">
+
+                    {% for category, message in messages %}
+
+                        <div class="flash {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <p>
+            © 2026 CyberSafe Quiz |
+            Cybersecurity Awareness Platform
+        </p>
+
+    </footer>
+
+</body>
+</html>

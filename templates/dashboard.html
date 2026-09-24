@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - CyberSafe Quiz{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>Cybersecurity Dashboard</h1>
+
+        <p>
+            Welcome back,
+            <strong>{{ session.get('username') }}</strong> 👋
+        </p>
+    </div>
+
+</div>
+
+
+<!-- Statistics -->
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            📝
+        </div>
+
+        <div>
+            <h3>{{ question_count }}</h3>
+            <p>Quiz Questions</p>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <div>
+            <h3>{{ user_count }}</h3>
+            <p>Registered Users</p>
+        </div>
+
+    </div>
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            🎯
+        </div>
+
+        <div>
+            <h3>{{ attempt_count }}</h3>
+            <p>Quiz Attempts</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- Quick Actions -->
+
+<div class="section-card">
+
+    <div class="section-header">
+
+        <div>
+            <h2>Quick Actions</h2>
+
+            <p>
+                Manage and test your cybersecurity knowledge.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="action-grid">
+
+        <a
+            href="{{ url_for('quiz') }}"
+            class="action-card"
+        >
+
+            <span class="action-icon">
+                🎯
+            </span>
+
+            <h3>Take Quiz</h3>
+
+            <p>
+                Test your cybersecurity awareness.
+            </p>
+
+        </a>
+
+
+        <a
+            href="{{ url_for('questions') }}"
+            class="action-card"
+        >
+
+            <span class="action-icon">
+                📚
+            </span>
+
+            <h3>Manage Questions</h3>
+
+            <p>
+                Add, edit and delete quiz questions.
+            </p>
+
+        </a>
+
+
+        <a
+            href="{{ url_for('add_question') }}"
+            class="action-card"
+        >
+
+            <span class="action-icon">
+                ➕
+            </span>
+
+            <h3>Add Question</h3>
+
+            <p>
+                Create a new cybersecurity question.
+            </p>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Attempts -->
+
+<div class="section-card">
+
+    <div class="section-header">
+
+        <div>
+            <h2>Recent Quiz Attempts</h2>
+
+            <p>
+                Latest quiz activity.
+            </p>
+        </div>
+
+    </div>
+
+
+    {% if recent_attempts %}
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>User</th>
+
+                    <th>Score</th>
+
+                    <th>Total</th>
+
+                    <th>Date</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for attempt in recent_attempts %}
+
+                <tr>
+
+                    <td>
+                        {{ attempt.username }}
+                    </td>
+
+                    <td>
+                        <span class="score-badge">
+                            {{ attempt.score }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ attempt.total_questions }}
+                    </td>
+
+                    <td>
+                        {{ attempt.attempt_date }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+
+        <div class="empty-icon">
+            📊
+        </div>
+
+        <h3>No Quiz Attempts Yet</h3>
+
+        <p>
+            Complete your first cybersecurity quiz
+            to see your result here.
+        </p>
+
+        <a
+            href="{{ url_for('quiz') }}"
+            class="btn btn-primary"
+        >
+            Take Your First Quiz
+        </a>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

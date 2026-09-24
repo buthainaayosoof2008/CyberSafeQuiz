@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Result - CyberSafe Quiz{% endblock %}
+
+{% block content %}
+
+<div class="result-page">
+
+    <div class="result-card">
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+        <h1>Quiz Completed!</h1>
+
+        <p class="result-subtitle">
+            Here is your cybersecurity quiz result.
+        </p>
+
+
+        <div class="score-circle">
+
+            <span class="score-number">
+                {{ score }}
+            </span>
+
+            <span class="score-total">
+                / {{ total_questions }}
+            </span>
+
+        </div>
+
+
+        <div class="percentage">
+            {{ percentage }}%
+        </div>
+
+
+        {% if percentage >= 80 %}
+
+            <h2 class="result-message">
+                Excellent! 🎉
+            </h2>
+
+            <p>
+                You have a strong understanding of cybersecurity basics.
+            </p>
+
+        {% elif percentage >= 50 %}
+
+            <h2 class="result-message">
+                Good Job! 👍
+            </h2>
+
+            <p>
+                You have a good foundation. Keep learning.
+            </p>
+
+        {% else %}
+
+            <h2 class="result-message">
+                Keep Learning! 📚
+            </h2>
+
+            <p>
+                Review the cybersecurity concepts and try again.
+            </p>
+
+        {% endif %}
+
+
+        <div class="result-actions">
+
+            <a
+                href="{{ url_for('quiz') }}"
+                class="btn btn-primary"
+            >
+                Try Again
+            </a>
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="btn btn-secondary"
+            >
+                Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

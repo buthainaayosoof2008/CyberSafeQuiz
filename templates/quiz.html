@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Cybersecurity Quiz - CyberSafe Quiz{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <div>
+        <h1>Cybersecurity Awareness Quiz</h1>
+
+        <p>
+            Test your knowledge of basic cybersecurity concepts.
+        </p>
+    </div>
+
+</div>
+
+
+<form
+    method="POST"
+    action="{{ url_for('submit_quiz') }}"
+>
+
+    <input
+        type="hidden"
+        name="csrf_token"
+        value="{{ csrf_token }}"
+    >
+
+
+    <div class="quiz-container">
+
+        {% for q in questions %}
+
+        <div class="quiz-card">
+
+            <div class="question-number">
+                Question {{ loop.index }}
+            </div>
+
+            <h2>
+                {{ q.question }}
+            </h2>
+
+
+            <div class="options">
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="question_{{ q.id }}"
+                        value="A"
+                        required
+                    >
+
+                    <span>
+                        <strong>A.</strong>
+                        {{ q.option_a }}
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="question_{{ q.id }}"
+                        value="B"
+                    >
+
+                    <span>
+                        <strong>B.</strong>
+                        {{ q.option_b }}
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="question_{{ q.id }}"
+                        value="C"
+                    >
+
+                    <span>
+                        <strong>C.</strong>
+                        {{ q.option_c }}
+                    </span>
+
+                </label>
+
+
+                <label class="option">
+
+                    <input
+                        type="radio"
+                        name="question_{{ q.id }}"
+                        value="D"
+                    >
+
+                    <span>
+                        <strong>D.</strong>
+                        {{ q.option_d }}
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    <div class="quiz-submit">
+
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            Submit Quiz
+        </button>
+
+    </div>
+
+</form>
+
+{% endblock %}
